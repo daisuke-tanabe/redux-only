@@ -6,9 +6,10 @@ html(lang="ja")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title Document
   body
-    div
-      | Count
-      span.js-count
-    button.js-increment(type="button") +
-    button.js-decrement(type="button") -
+    div.js-counter
+      div Count
+        span.js-result
+      button.js-increment(type="button") +
+      button.js-decrement(type="button") -
+
     script(src="assets/js/index.js")
