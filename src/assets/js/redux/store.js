@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import counter from './reducer/counter';
+import form from './reducer/form';
 
 const reducer = combineReducers({
-  counter
+  form
 });
 
 const store = createStore(reducer);

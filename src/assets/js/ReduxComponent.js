@@ -1,23 +1,25 @@
 export default class ReduxComponent {
-  constructor(root, store) {
-    this.$root = root;
-    this.state = store;
+  constructor(store) {
+    this.store = store;
     this.dispatch = store.dispatch;
 
     store.subscribe(() => {
-      this.state = store;
-      this.render();
+      this.store = store;
+      const newStore = store.getState();
+      if (this.store !== newStore) {
+        this.render();
+      }
     });
   }
 
-  get state() {
-    return this._state;
+  get store() {
+    return this._store;
   }
 
-  set state(store) {
-    this._state = store.getState();
+  set store(store) {
+    this._store = store.getState();
   }
 
-  // 継承先が利用する
+  // 継承元では扱わずに継承先が利用する
   render() {}
 }

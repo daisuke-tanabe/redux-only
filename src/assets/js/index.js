@@ -1,5 +1,5 @@
-import Counter from './Counter';
+import Form from './Form';
 import store from './redux/store';
 
-const $counter = document.querySelector('.js-counter');
-new Counter($counter, store);
+const $form = document.querySelector('.js-form');
+new Form($form, store);

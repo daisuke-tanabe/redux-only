@@ -13,7 +13,7 @@ export default class Counter extends ReduxComponent {
   }
 
   render() {
-    this.$result.textContent = this.state.counter.count;
+    this.$result.textContent = this.store.counter.count;
   }
 
   eventListeners() {
