@@ -10,10 +10,26 @@ const SUBMIT = 'SUBMIT';
 /**
  * Reducers
  */
-const initialState = {};
+const initialState = {
+  field: [
+    {
+      id: 0,
+      type: 'text',
+      error: true,
+      value: ''
+    },
+    {
+      id: 1,
+      type: 'textarea',
+      error: true,
+      value: ''
+    }
+  ],
+  isSendable: false
+};
 
 export default handleActions({
-  [INITIALIZE]: (state, { payload }) => payload,
+  // [INITIALIZE]: (state, { payload }) => payload,
 
   [INPUT]: (state, { payload }) => {
     const { index: id, value } = payload;
