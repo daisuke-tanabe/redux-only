@@ -9,6 +9,7 @@ export default class ReduxComponent {
     store.subscribe(() => {
       // 暫定処理
       this.state = store.getState();
+      console.log(this.state);
       this.render();
 
       // もう少し理解したらここやる

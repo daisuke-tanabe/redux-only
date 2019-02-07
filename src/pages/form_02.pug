@@ -6,20 +6,38 @@ html(lang="ja")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title Document
     style.
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .field {
+        margin-bottom: 10px;
+      }
       .is-hidden {
         display: none;
       }
   body
     div
       form.js-form(action="dummy")
-        .js-field
+        .field.js-field(data-type="text")
           .error.is-hidden.js-error 未入力です
           .js-input-area
-            input(type="text" value="dummy").js-input
-        .js-field
+            input(type="text" value="").js-input
+
+        .field.js-field(data-type="radio")
           .error.is-hidden.js-error 未入力です
           .js-input-area
-            textarea.js-input dummy
+            label
+              input(type="radio" name="radio1" value="radio1-1" checked).js-input
+              | Good
+            label
+              input(type="radio" name="radio1" value="radio1-2").js-input
+              | Bad
+
+        .field.js-field(data-type="textarea")
+          .error.is-hidden.js-error 未入力です
+          .js-input-area
+            textarea.js-input test
         button(type="submit").js-submit submit
 
     script(src="assets/js/index.js")
