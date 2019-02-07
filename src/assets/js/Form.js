@@ -1,16 +1,10 @@
 import ReduxComponent from './ReduxComponent';
-import { initialize, input, submit } from './redux/reducer/form';
-
-export const initialState = {
-  hoge: 0
-};
+import { input, submit } from './redux/reducer/form';
 
 export default class Form extends ReduxComponent {
-  constructor(root, store) {
-    super(store);
-
-    console.log(this.state)
-    this.$root = root;
+  constructor($root, store) {
+    super($root, store);
+    this.$root = $root;
     this.$field = Array.from(this.$root.querySelectorAll('.js-field'));
 
     this.$field.forEach((field, index) => {
@@ -29,42 +23,36 @@ export default class Form extends ReduxComponent {
       // 送信をキャンセルする
       event.preventDefault();
 
-      // this.$field.forEach((field, index) => {
-      //   field.querySelector('.js-error').classList.toggle('is-hidden', !this.state.form.field[index].error);
-      // });
+      this.$field.forEach((field, index) => {
+        field.querySelector('.js-error').classList.toggle('is-hidden', !this.state.form.field[index].error);
+      });
     });
   }
 
-  // storeデータを作成する(初期化する)
-  // initialize() {
-  //   const field = this.$field.map((field, index) => {
-  //     const $input = field.querySelector('.js-input');
-  //     const type = {
-  //       INPUT: $input.getAttribute('type'),
-  //       TEXTAREA: 'textarea'
-  //     };
-  //     const value = $input.value;
-  //
-  //     return {
-  //       id: index,
-  //       type: type[$input.tagName],
-  //       error: value === '',
-  //       value
-  //     }
-  //   });
-  //
-  //   const isSendable = false;
-  //
-  //   this.dispatch(initialize({
-  //     field,
-  //     isSendable
-  //   }));
-  // }
+  static initializeState($root) {
+    const $field = Array.from($root.querySelectorAll('.js-field'));
 
-  render() {
-    console.log('render!!');
-    this.$field.forEach((field, index) => {
-      field.querySelector('.js-error').classList.toggle('is-hidden', !this.state.form.field[index].error);
+    const fields = $field.map((field, index) => {
+      const $input = field.querySelector('.js-input');
+      const type = {
+        INPUT: $input.getAttribute('type'),
+        TEXTAREA: 'textarea'
+      };
+      const value = $input.value;
+
+      return {
+        id: index,
+        type: type[$input.tagName],
+        error: value === '',
+        value
+      }
     });
+
+    const isSendable = fields.some(field => field.error === false);
+
+    return {
+      fields,
+      isSendable
+    };
   }
 }

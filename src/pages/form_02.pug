@@ -11,15 +11,15 @@ html(lang="ja")
       }
   body
     div
-      form.js-form
+      form.js-form(action="dummy")
         .js-field
           .error.is-hidden.js-error 未入力です
           .js-input-area
-            input(type="text").js-input
+            input(type="text" value="dummy").js-input
         .js-field
           .error.is-hidden.js-error 未入力です
           .js-input-area
-            textarea.js-input
+            textarea.js-input dummy
         button(type="submit").js-submit submit
 
     script(src="assets/js/index.js")

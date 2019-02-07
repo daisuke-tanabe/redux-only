@@ -1,48 +1,30 @@
-import { createAction, handleActions } from 'redux-actions';
+import {createAction, handleActions} from 'redux-actions';
 
 /**
  * Actions
  */
-const INITIALIZE = 'INITIALIZE';
-const INPUT = 'INPUT';
+const NAME_SPACE = 'FORM/';
+const TEXT_INPUT = 'TEXT_INPUT';
 const SUBMIT = 'SUBMIT';
 
 /**
  * Reducers
  */
-const initialState = {
-  field: [
-    {
-      id: 0,
-      type: 'text',
-      error: true,
-      value: ''
-    },
-    {
-      id: 1,
-      type: 'textarea',
-      error: true,
-      value: ''
-    }
-  ],
-  isSendable: false
-};
+// 動的に作成されるため空を指定する
+const initialState = {};
 
 export default handleActions({
-  // [INITIALIZE]: (state, { payload }) => payload,
-
-  [INPUT]: (state, { payload }) => {
+  [TEXT_INPUT]: (state, { payload }) => {
     const { index: id, value } = payload;
-    const field = state.field.filter(field => field.id === id)[0];
-    const newData = {
+    const field = state.fields.filter(field => field.id === id)[0];
+
+    state.fields[id] = {
       id,
       type: field.type,
       value: field.value = value,
       error: field.error = value === ''
     };
-    state.field[id] = newData;
-
-    state.isSendable = !state.field.some(state => state.error === true);
+    state.isSendable = !state.fields.some(state => state.error === true);
 
     return state;
   },
@@ -56,6 +38,5 @@ export default handleActions({
 /**
  * Action Creators
  */
-export const initialize = createAction(INITIALIZE, data => data);
-export const input = createAction(INPUT, (index, value) => ({ index, value }));
+export const input = createAction(TEXT_INPUT, (index, value) => ({ index, value }));
 export const submit = createAction(SUBMIT, hasError => hasError);

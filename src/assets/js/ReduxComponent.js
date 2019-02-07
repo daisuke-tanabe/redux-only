@@ -1,25 +1,36 @@
 export default class ReduxComponent {
-  constructor(store) {
+  constructor($root, store) {
+    this.$root = $root;
     this.state = store.getState();
     this.dispatch = store.dispatch;
 
+    console.log(this.state);
+
     store.subscribe(() => {
-      console.log('actionがdispatchされたら呼び出されたので、ツリーの一部が変更されている可能性がある');
-      const newState = store.getState();
-
-      if (this.state !== newState) {
-        console.log('現在のthis.storeと新しいstoreの中身が違う');
-        this.state = newState;
-        console.log('のでrenderする');
-        this.render();
-        return;
-      }
-
-      console.log('のでrenderする');
+      // 暫定処理
+      this.state = store.getState();
       this.render();
+
+      // もう少し理解したらここやる
+      //
+      // console.log('actionがdispatchされたら呼び出されたので、ツリーの一部が変更されている可能性がある');
+      // const newState = store.getState();
+      //
+      // if (this.state !== newState) {
+      //   console.log('現在のthis.storeと新しいstoreの中身が違う');
+      //   this.state = newState;
+      //   console.log('のでrenderする');
+      //   this.render();
+      //   return;
+      // }
+      //
+      // console.log('のでrenderする');
+      // this.render();
     });
   }
 
-  // 継承元では扱わずに継承先が利用する
-  render() {}
+  render() {
+    // 継承元に存在しない場合のエラーを回避
+    // Error avoidance
+  }
 }
